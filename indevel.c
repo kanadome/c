@@ -2,36 +2,23 @@
 
 int main(void)
 {
-    char test[10];
-    char *Ptest;
+    int num;
+    int *Pnum;
+    Pnum = &num;
+
     int i = 0;
-
-    while (i < 10){test[i] = i; i++;}
-
-    printf("\n  >>");
-    scanf("%d", &i);
-
-    Ptest = &test[i];
-
-    printf("\n>> %s\n", test);
-    printf("\n>> %p\n", Ptest);
-    printf("\n>> %c\n", *Ptest);
-
-    
-    /*
-    int i = 0;
-    while (i < 10)
+    while (i < 5)
     {
-        int ii = i +1;
-        printf("\n test[%d]  :", ii);
-        scanf("%*c%c",  &test[i]);
- 
+        num = i;
+        printf("\nnum : %d\n", num);
+        printf("\nPnum  : %p\n", Pnum);
+        printf("\n*Pnum  : %d\n", *Pnum);
+        printf("\n --------------\n");
+
+        *Pnum  = i * i;
+        printf("%d", num);
+        printf("\n===========================\n");
+
         i++;
-
     }
-
-    printf("%s \n\n", test);
-    */
-
-    return 0;
 }
