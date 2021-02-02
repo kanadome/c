@@ -17,9 +17,9 @@ int main(void)
 int main(void)
 {
     int x, y;
-    printf("\n  >>");
+    printf("\nX  >>");
     scanf("%d", &x);
-    printf("\n  >>");
+    printf("\nY  >>");
     scanf("%d", &y);
 
     int result = return_exponentiation(x, y);
