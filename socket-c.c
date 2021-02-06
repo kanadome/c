@@ -1,4 +1,7 @@
 #include "include.c"
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <netinet/in.h>
 
 int main(void){
 

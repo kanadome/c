@@ -1,16 +1,8 @@
 #include <stdio.h>
 
+int main(void){
+    int a = sizeof("Hello World");
+    printf("\n %d \n", a);
 
-int return_exponentiation(int x, int y)
-{
-    int result;
-    int i = 1; /*Counter*/
-    result = x;
-
-    while (i < y)
-    {
-        result =  result * x;
-        i++;
-	}
-    return result;
+    return 0;
 }
