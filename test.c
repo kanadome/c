@@ -1,8 +1,14 @@
 #include <stdio.h>
 
 int main(void){
-    int a = sizeof("Hello World");
-    printf("\n %d \n", a);
+
+    int x, y[1000];
+ 
+    printf("\n X >> ");
+    scanf("%d", &x);
+
+    printf("\n %d", x);
+    printf("\n %x\n", x);
 
     return 0;
 }
