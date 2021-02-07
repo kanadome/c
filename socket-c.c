@@ -9,13 +9,14 @@
 
 int main(void){
 
+  
     int sock = socket(AF_INET, SOCK_STREAM, 0);     /* ソッケトを作成 */
 
     struct sockaddr_in server;
 
     server.sin_family = AF_INET;
     server.sin_port = htons(PORT);
-    server.sin_addr.s_addr = inet_addr("127.0.0.1");
+    server.sin_addr.s_addr = inet_addr ("127.0.0.1");
 
     if (connect(sock, (struct sockaddr *)&server, sizeof(server)) == -1){
         printf("\n Error");
@@ -23,7 +24,10 @@ int main(void){
 
     char contents[10000];
     if (read(sock, contents, sizeof(contents)) != -1){
-        printf("\n\n The TCP Server Said :  %s", contents);
+        printf("\n\n The TCP Server Said :  %s\n\n", contents);
+    }else{
+        printf("\n Error !!!!!!!!!!!!!!!!!!!!!!!!!");
+        printf("\n\n The TCP Server Said :  %s\n\n", contents);
     }
 
     close(sock);

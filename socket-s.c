@@ -1,3 +1,4 @@
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -5,10 +6,12 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
-#define PORT 1992
-#define ADDRESS 
+#define PORT 1120
 
 int main(void){
+
+    char str_send[10001];
+    fgets(str_send, 10000, stdin);
 
 /* sockaddr_in構造体は、接続先のIPアドレスやポート番号の情報を格納し、bindシステムコールによって、ソッケトと関連付けられる */
     struct sockaddr_in addr;
@@ -18,6 +21,7 @@ int main(void){
 
     addr.sin_family = AF_INET;                            /* アドレスファミリ */
     addr.sin_port = htons(PORT);                        /* Port 番号    ( htons は整数をネットワークバイトオーダーに変換する )   */
+    
     addr.sin_addr.s_addr = htonl(INADDR_ANY);       /* INADDR_ANY を指定するとどのIPからの要求も受け付ける　*/
     /* htons と htonl の違いは htons は返り値が s_short , htonl は 返り値が u_long  */
 
@@ -30,8 +34,11 @@ int main(void){
      unsigned int length = sizeof (client);
      int sock = accept(sock0, (struct sockaddr *)&client, &length);
 
-    write(sock, "Hello World", sizeof("Hello World"));
-
+/*
+    write(sock, str_send, sizeof(str_send));
+    printf("\n Send : %s", str_send);
+*/
+    write(sock, str_send, sizeof(str_send));
     close(sock);
     close(sock0);
 
