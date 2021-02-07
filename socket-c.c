@@ -19,15 +19,15 @@ int main(void){
     server.sin_addr.s_addr = inet_addr ("127.0.0.1");
 
     if (connect(sock, (struct sockaddr *)&server, sizeof(server)) == -1){
-        printf("\n Error");
+        printf("\n Error :  Server not found  \n");
     }
 
     char contents[10000];
+   
     if (read(sock, contents, sizeof(contents)) != -1){
         printf("\n\n The TCP Server Said :  %s\n\n", contents);
     }else{
         printf("\n Error !!!!!!!!!!!!!!!!!!!!!!!!!");
-        printf("\n\n The TCP Server Said :  %s\n\n", contents);
     }
 
     close(sock);
