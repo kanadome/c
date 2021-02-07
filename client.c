@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include <string.h>
 
 #define PORT 1120
 
@@ -23,11 +24,23 @@ int main(void){
     }
 
     char contents[10000];
+
    
     if (read(sock, contents, sizeof(contents)) != -1){
-        printf("\n\n The TCP Server Said :  %s\n\n", contents);
-    }else{
-        printf("\n Error !!!!!!!!!!!!!!!!!!!!!!!!!");
+        printf("\n Server :  %s\n", contents);
+    }
+
+    char server_c[10000], client_c[10000], exit[10];
+    while (strcmp(server_c, "exit") != 0){
+   
+    printf("\n >>");
+    fgets(client_c, 10000, stdin);
+    write(sock, client_c, sizeof(client_c));
+    printf("\n Client :  %s\n", client_c);
+
+
+    read(sock, server_c, sizeof(server_c));
+    printf("\n Server :  %s\n", client_c);
     }
 
     close(sock);
