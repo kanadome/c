@@ -7,6 +7,7 @@
 #include <string.h>
 
 #define PORT 1120
+#define SERVER_ADDRESS 127.0.0.1
 
 int main(void){
 
@@ -17,7 +18,7 @@ int main(void){
 
     server.sin_family = AF_INET;
     server.sin_port = htons(PORT);
-    server.sin_addr.s_addr = inet_addr ("127.0.0.1");
+    server.sin_addr.s_addr = inet_addr (SERVER_ADDRESS);
 
     if (connect(sock, (struct sockaddr *)&server, sizeof(server)) == -1){
         printf("\n Error :  Server not found  \n");
