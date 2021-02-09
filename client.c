@@ -7,7 +7,8 @@
 #include <string.h>
 
 #define PORT 1120
-#define SERVER_ADDRESS 127.0.0.1
+#define SERVER_ADDRESS "127.0.0.1"
+
 
 int main(void){
 
@@ -28,30 +29,22 @@ int main(void){
     char contents[10000];
 
    
-    if (read(sock, contents, sizeof(contents)) != -1){
-        printf("\n Server :\033[37m\033[1m\033[40m  %s\n", contents);
-    }
+    read(sock, contents, sizeof(contents));
+    printf("\n Server :\033[37m\033[1m\033[40m  %s\033[0m\n", contents);
+
 
     char server_c[10000], client_c[10000], exit[10] = "exit";
     int i = 1;
     while (i == 1){
    
-    printf("\n\033[0m >>   ");
+    printf("\n >>   ");
     fgets(client_c, 10000, stdin);
+    
     write(sock, client_c, sizeof(client_c));
-    if (strcmp(client_c, exit) == 0){
-        close(sock);
-        return 0;
-    }
-    /*printf("\n\033[32m Client :  %s\n", client_c);*/
-
-
+   
     read(sock, server_c, sizeof(server_c));
-    printf("\n  Server :\033[37m\033[1m\033[40m  %s\n", server_c);
-    if (strcmp(server_c, exit) == 0){
-        close(sock);
-        return 0;
-    }
+    printf("\n  Server :\033[37m\033[1m\033[40m  %s\033[0m\n", server_c);
+    
     }
 
     close(sock);

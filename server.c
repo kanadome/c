@@ -34,27 +34,22 @@ int main(void){
      int sock = accept(sock0, (struct sockaddr *)&client, &length);
 
     char server_c[10000], client_c[10000], exit[10] = "exit";
+
+    printf("\n >>   ");
+    fgets(server_c, 10000, stdin);
+    write(sock, server_c , sizeof(server_c));
+
     int i =1;
     while (i ==1){
-   
-    printf("\n\033[0m >>   ");
-    fgets(server_c, 10000, stdin);
-    write(sock, server_c, sizeof(server_c));
-    if (strcmp(server_c, exit) == 0){
-       close(sock);
-       close(sock0);
-        return 0;
-    }
-    /*printf("\n\033[32m Server :  %s\n", server_c);*/
-
 
     read(sock, client_c, sizeof(client_c));
-    printf("\n Client : \033[37m\033[1m\033[40m %s\n", client_c);
-    if (strcmp(client_c, exit) == 0){
-        close(sock);
-        close(sock0);
-        return 0;
-    }
+    printf("\n Client : \033[37m\033[1m\033[40m %s\033[0m\n", client_c);
+ 
+   
+    printf("\n >>   ");
+    fgets(server_c, 10000, stdin);
+    write(sock, server_c , sizeof(server_c));
+  
     }
 
     close(sock);
