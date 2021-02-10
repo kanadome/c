@@ -8,6 +8,27 @@
 
 #define PORT 1120
 
+
+int write_read (int sock){
+
+    char contents[10000];
+
+    while (1 == 1){
+        /*-------- - WRITE -----------*/
+        printf("\n  >>  ");
+        fgets(contents, sizeof(contents), stdin);
+        write(sock, contents, sizeof(contents));
+
+         /*---------  READ  -----------*/
+         read(sock, contents, sizeof(contents));
+         printf("\n CLIENT :  \033[37m\033[40m%s\033[0m", contents);
+    }
+
+    return 0;;
+}
+
+
+
 int main(void){
 
     char str_send[10001];
@@ -33,6 +54,8 @@ int main(void){
      unsigned int length = sizeof (client);
      int sock = accept(sock0, (struct sockaddr *)&client, &length);
 
+    write_read(sock);
+    /*
     char server_c[10000], client_c[10000], exit[10] = "exit";
 
     printf("\n >>   ");
@@ -51,6 +74,7 @@ int main(void){
     write(sock, server_c , sizeof(server_c));
   
     }
+    */
 
     close(sock);
 

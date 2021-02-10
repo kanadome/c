@@ -15,8 +15,6 @@ int read_write (int sock){
 
     char contents[10000];
 
-    /*----*/ printf("%d", sock);
-
     while (1 == 1){
         /* ---------- READ  ---------------*/
         read(sock, contents, sizeof(contents));
@@ -25,7 +23,6 @@ int read_write (int sock){
         /*---------- WRITE ---------------*/
         printf("\n  >>  ");
         fgets(contents, sizeof(contents), stdin);
-        /* --- */ printf("\n\n %s \n\n", contents);
         write(sock, contents, sizeof(contents));
     }
 
