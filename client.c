@@ -10,6 +10,29 @@
 #define SERVER_ADDRESS "127.0.0.1"
 
 
+/* --------- Read and Write Socket ------------*/
+int read_write (int sock){
+
+    char contents[10000];
+
+    /*----*/ printf("%d", sock);
+
+    while (1 == 1){
+        /* ---------- READ  ---------------*/
+        read(sock, contents, sizeof(contents));
+        printf("\n  SERVER :  \033[37m\033[40m%s\033[0m", contents);
+
+        /*---------- WRITE ---------------*/
+        printf("\n  >>  ");
+        fgets(contents, sizeof(contents), stdin);
+        /* --- */ printf("\n\n %s \n\n", contents);
+        write(sock, contents, sizeof(contents));
+    }
+
+    return 0;
+}
+
+
 int main(void){
 
   
@@ -26,13 +49,14 @@ int main(void){
         return -1;
     }
 
+/*
     char contents[10000];
-
-   
     read(sock, contents, sizeof(contents));
     printf("\n Server :\033[37m\033[1m\033[40m  %s\033[0m\n", contents);
+*/
 
-
+   read_write(sock);
+    /*
     char server_c[10000], client_c[10000], exit[10] = "exit";
     int i = 1;
     while (i == 1){
@@ -46,6 +70,7 @@ int main(void){
     printf("\n  Server :\033[37m\033[1m\033[40m  %s\033[0m\n", server_c);
     
     }
+    */
 
     close(sock);
 
