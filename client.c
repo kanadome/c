@@ -7,7 +7,7 @@
 #include <string.h>
 
 #define PORT 1120
-#define SERVER_ADDRESS "127.0.0.1"
+#define SERVER_ADDRESS "60.134.221.10"
 
 
 /* --------- Read and Write Socket ------------*/
