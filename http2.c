@@ -1,9 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "sock.c"
 
-#define PORT 1120   /* 使用するポート番号 */
+#define PORT 80   /* 使用するポート番号 */
 
-int communication(int);
 
 int main(void) {
   
@@ -24,22 +24,17 @@ int main(void) {
     listen (sock_acceptance, 5);
 
     unsigned int client_size = sizeof(client);
-    int sock = accept(sock_acceptance, (struct sockaddr *)&client, &client_size);
+    
 
-    for (int i = 0; i < 1; i++){communication(sock);}
 
-    close(sock);
-    close(sock_acceptance);
-    return 0;
-}
 
-int communication(int sock) {
-    char head[1000000], contents[1000000];
+/*---------------------------------------------------------*/
+char head[1000000], contents[1000000];
 
     
 
     FILE *html_file = NULL;
-    html_file = fopen("../web/index.html", "r");
+    html_file = fopen("./http2.html", "r");
 
 
     char a;
@@ -49,15 +44,6 @@ int communication(int sock) {
         contents[i] = a;
         i++;
     }
-    printf("\n%s\n", contents);
-/*
-    write(sock, "HTTP/1.0 200 OK\r\n", sizeof("HTTP/1.1 200 OK\r\n"));
-    write(sock, "Content-Length: 20\r\n", sizeof("Content-Length: 20\r\n"));
-    write(sock, "Content-Type: text/html\r\n", sizeof("Content-Type: text/html\r\n"));
-    write(sock, "\r\n", sizeof("\r\n"));
-    write(sock, "Hello World\r\n", sizeof("Hello World\r\n"));
-*/  
-
 
     strcpy(head,"HTTP/1.1 200 OK\r\n"
 	            "Content-Length: 5000\r\n"
@@ -69,18 +55,24 @@ int communication(int sock) {
     strcat(head, contents);
     strcat(head, "\r\n");
 
-    printf("\n\n %s \n", head);
 
-    
+/*-------------------------------------------------------------------------------*/
 
-    if (fork() == 0) {
-        write(sock,head, 10000);
-        close(sock);
-        return 0;
-    }else{
-        close(sock);
-        return 0;
+    int count = 0;
+    while (count < 100) {
+        int sock = accept(sock_acceptance, (struct sockaddr *)&client, &client_size);
+
+        if (fork() == 0) {
+            write(sock, head, sizeof(head));
+            close(sock);
+
+            exit (0);
+        }else{
+            close(sock);
+        }
     }
 
+    close(sock_acceptance);
     return 0;
 }
+
