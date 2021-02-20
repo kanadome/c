@@ -34,18 +34,20 @@ int main(void) {
 }
 
 int communication(int sock) {
-    char head[100], contents[1000000];
+    char head[1000000], contents[1000000];
 
     
 
     FILE *html_file = NULL;
-    html_file = fopen("test.html", "r");
-    int i = 0;
+    html_file = fopen("../web/index.html", "r");
 
 
     char a;
+    int i = 0;
     while ((a = fgetc(html_file)) != EOF) {
         printf("%c", a);
+        contents[i] = a;
+        i++;
     }
     printf("\n%s\n", contents);
 /*
@@ -57,19 +59,17 @@ int communication(int sock) {
 */  
 
 
-    strcpy(head,"HTTP/1.0 200 OK\r\n"
-	            "Content-Length: 20\r\n"
+    strcpy(head,"HTTP/1.1 200 OK\r\n"
+	            "Content-Length: 5000\r\n"
 	            "Content-Type: text/html\r\n"
 	            "\r\n"
     );
 
-    char html[1000000];
+    printf("\n %s\n", contents);
+    strcat(head, contents);
+    strcat(head, "\r\n");
 
-    strcpy(html, contents);
-
-    strcpy(contents, strcat(head, contents));
-
-    printf("\n\n %s \n", contents);
+    printf("\n\n %s \n", head);
 
     write(sock,head, 10000);
 
