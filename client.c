@@ -7,13 +7,14 @@
 #include <string.h>
 
 #define PORT 1120
-#define SERVER_ADDRESS "60.134.221.10"
+#define SERVER_ADDRESS "127.0.0.1"
 
 
 /* --------- Read and Write Socket ------------*/
-int read_write (int sock){
+int read_write (int sock, int sock_judgment){
 
     char contents[10000];
+    int judgment;
 
     while (1 == 1){
         /* ---------- READ  ---------------*/
@@ -21,9 +22,11 @@ int read_write (int sock){
         printf("\n  SERVER :  \033[37m\033[40m%s\033[0m", contents);
 
         /*---------- WRITE ---------------*/
+        printf("\n\n--- %s  \n\n", contents); /*---------------------------------------*/
         printf("\n  >>  ");
         fgets(contents, sizeof(contents), stdin);
         write(sock, contents, sizeof(contents));
+        printf("\n\n--- %s  \n\n", contents); /*---------------------------------------*/
     }
 
     return 0;
@@ -34,6 +37,7 @@ int main(void){
 
   
     int sock = socket(AF_INET, SOCK_STREAM, 0);     
+    int sock_judgment = socket(AF_INET, SOCK_STREAM, 0);
 
     struct sockaddr_in server;
 
@@ -45,31 +49,17 @@ int main(void){
         printf("\n Error :  Server not found  \n");
         return -1;
     }
-
-/*
-    char contents[10000];
-    read(sock, contents, sizeof(contents));
-    printf("\n Server :\033[37m\033[1m\033[40m  %s\033[0m\n", contents);
-*/
-
-   read_write(sock);
-    /*
-    char server_c[10000], client_c[10000], exit[10] = "exit";
-    int i = 1;
-    while (i == 1){
-   
-    printf("\n >>   ");
-    fgets(client_c, 10000, stdin);
-    
-    write(sock, client_c, sizeof(client_c));
-   
-    read(sock, server_c, sizeof(server_c));
-    printf("\n  Server :\033[37m\033[1m\033[40m  %s\033[0m\n", server_c);
-    
+    if (connect(sock_judgment, (struct sockaddr *)&server, sizeof(server)) == -1){
+        printf("\n Error  :  Server not found \n");
+        return 0;
     }
-    */
+
+
+   read_write(sock, sock_judgment);
+
 
     close(sock);
+    close(sock_judgment);
 
     printf("\003[0m");
 

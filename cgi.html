@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			CGI
+		</title>
+	</head>
+	<body>
+		<style>
+			.button{
+				background-color: lightgray;
+				text-align:center;
+				width:fit-content;
+				margin:auto;
+				font-family: sans-serif;
+				border: outset;
+			}
+		</style>
+		<script>
+			function cgi(){
+				location.href="cgi.cgi";
+			}
+		</script>
+		<form method="POST" action="./cgi.c">
+			<div class="button" onclick=cgi();>
+				&nbsp;&nbsp;Click Here !!&nbsp;&nbsp;
+			</div>
+		</form>
+	</body>
+</html>
