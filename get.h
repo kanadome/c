@@ -1,19 +1,18 @@
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "sock.c"
 
-#define PORT 1120   /* 使用するポート番号 */
-
-char *communication();
-
-int main(void) {
-  
-
+char read_get(int port, char html_file) {
     struct sockaddr_in acceptance;
     struct sockaddr_in client;
 
     acceptance.sin_family = AF_INET;
-    acceptance.sin_port = htons(PORT);
+    acceptance.sin_port = htons(port);
     acceptance.sin_addr.s_addr = htonl(INADDR_ANY);
 
     int sock_acceptance = socket(AF_INET, SOCK_STREAM, 0);
@@ -98,6 +97,7 @@ int main(void) {
     close(sock_acceptance);
     return 0;
 }
+}
 
 char *communication() {
     char head[1000000], contents[1000000];
@@ -114,13 +114,7 @@ char *communication() {
         contents[i] = a;
         i++;
     }
-/*
-    write(sock, "HTTP/1.0 200 OK\r\n", sizeof("HTTP/1.1 200 OK\r\n"));
-    write(sock, "Content-Length: 20\r\n", sizeof("Content-Length: 20\r\n"));
-    write(sock, "Content-Type: text/html\r\n", sizeof("Content-Type: text/html\r\n"));
-    write(sock, "\r\n", sizeof("\r\n"));
-    write(sock, "Hello World\r\n", sizeof("Hello World\r\n"));
-*/  
+
 
 
     strcpy(head,"HTTP/1.1 200 OK\r\n"

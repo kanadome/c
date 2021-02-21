@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "sock.c"
 
-#define PORT 80   /* 使用するポート番号 */
+#define PORT 1120   /* 使用するポート番号 */
 
 
 int main(void) {
