@@ -2,6 +2,18 @@
 #include <stdlib.h>
 #include "sock.c"
 
+
+/*
+
+　HTMLファイルから、 % で始まり $ で終わる GET リクエストを送ると、
+その文字列を　request_contents にだいにゅうできます
+
+
+*/
+
+
+
+
 #define PORT 1120   /* 使用するポート番号 */
 
 char *communication();
